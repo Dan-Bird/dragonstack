@@ -1,0 +1,22 @@
+{
+  "name": "dragonstack",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {},
+  "scripts": {
+    "start": "node .",
+    "dev": "nodemon ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https: //github.com/Dan-Bird/dragonstack.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Dan-Bird/dragonstack/issues"
+  },
+  "homepage": "https://github.com/Dan-Bird/dragonstack#readme"
+}
