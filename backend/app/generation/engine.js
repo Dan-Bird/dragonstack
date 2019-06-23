@@ -1,4 +1,4 @@
-const Generation = require('./generation.js');
+const Generation = require('./index');
 
 class GenerationEngine {
   constructor() {
@@ -35,6 +35,3 @@ module.exports = GenerationEngine;
 // newGeneration method makes gen object and sets to this.generation
 //setTimeout to schedule calls to newGen
 // try recursion
-
-
-module.exports = GenerationEngine;
