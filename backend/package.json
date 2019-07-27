@@ -5,7 +5,8 @@
   "scripts": {
     "start": "node ./bin/server",
     "dev": "nodemon ./bin/server",
-    "configure": "./bin/configure_db.sh"
+    "configure": "./bin/configure_db.sh",
+    "congigure-dev": "npm run configure && npm run dev"
   },
   "keywords": [],
   "author": "",
