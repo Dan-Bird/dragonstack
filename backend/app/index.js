@@ -13,6 +13,16 @@ app.locals.engine = engine;
 app.use('/dragon', dragonRouter);
 app.use('/generation', generationRouter);
 
+app.use((err, req, res, next) => {
+  // If the err doesn't have it's own status code, we set one
+  // for general internal server error
+  const statusCode = err.statusCode || 500;
+
+  res.status(statusCode).json({
+    type: 'error', message: err.message
+  })
+});
+
 engine.start();
 
 module.exports = app;
