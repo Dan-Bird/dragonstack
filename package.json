@@ -1,13 +1,15 @@
 {
   "name": "dragonstack",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
-  "dependencies": {},
+  "dependencies": {
+    "concurrently": "^4.1.2"
+  },
   "devDependencies": {},
   "scripts": {
-    "start": "node .",
-    "dev": "nodemon ."
+    "start": "concurrently --kill-others \"npm run backend\" \"npm run frontend\"",
+    "backend": "nodemon backend/bin/server",
+    "frontend": "parcel frontend/src/index.html"
   },
   "repository": {
     "type": "git",
@@ -18,5 +20,7 @@
   "bugs": {
     "url": "https://github.com/Dan-Bird/dragonstack/issues"
   },
-  "homepage": "https://github.com/Dan-Bird/dragonstack#readme"
+  "homepage": "https://github.com/Dan-Bird/dragonstack#readme",
+  "keywords": [],
+  "description": ""
 }
