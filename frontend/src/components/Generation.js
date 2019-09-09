@@ -2,13 +2,19 @@ import React, { Component } from 'react';
 
 const DEFAULT_GENERATION = {generationId: '', expiration: ''};
 
+const MINUMM_DELAY = 3000;
+
 class Generation extends Component {
-  constructor() {
-    state = { generation: DEFAULT_GENERATION };
-  }
+  state = { generation: DEFAULT_GENERATION };
+
+  timer = null;
 
   componentDidMount() {
     this.fetchGeneration();
+  }
+
+  componentWillUnmount() {
+    clearTimeout(this.timer);
   }
 
   fetchGeneration() {
@@ -20,6 +26,19 @@ class Generation extends Component {
         this.setState({generation: json.generation});
       })
       .catch(error => console.error(error));
+  }
+
+  fetchNextGeneration() {
+    this.fetchGeneration();
+
+    let delay = new Date(this.state.generation.expiration).getTime() -
+      new Date().getTime();
+
+    if (delay < MINUMM_DELAY) delay = MINUMM_DELAY;
+
+    this.timer = setTimeout(() => {
+      this.fetchGeneration();
+    }, delay);
   }
 
   render() {
