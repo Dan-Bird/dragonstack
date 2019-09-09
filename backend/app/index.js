@@ -1,4 +1,5 @@
 const express          = require('express');
+const cors             = require('cors');
 const GenerationEngine = require('./generation/engine');
 const dragonRouter     = require('./api/dragon');
 const generationRouter = require('./api/generation');
@@ -8,6 +9,9 @@ const engine = new GenerationEngine();
 
 // Bind engine so that dragonRouter file in api can access it
 app.locals.engine = engine;
+
+// Set backend to use same origin as frontend.
+app.use(cors( {origin: 'http://localhost:1234'} ));
 
 // Attach all routes from dragonRouter to '/dragon'
 app.use('/dragon', dragonRouter);
