@@ -1,48 +1,41 @@
 import React, { Component } from 'react';
-
-const DEFAULT_GENERATION = {generationId: '', expiration: ''};
+import { connect } from 'react-redux';
+import { fetchGeneration } from '../actions/generation';
+import fetchStates from '../reducers/fetchStates';
 
 const MINUMM_DELAY = 3000;
 
 class Generation extends Component {
-  state = { generation: DEFAULT_GENERATION };
-
   timer = null;
 
   componentDidMount() {
-    this.fetchGeneration();
+    this.props.fetchGeneration();
   }
 
   componentWillUnmount() {
     clearTimeout(this.timer);
   }
 
-  fetchGeneration() {
-    fetch('http://localhost:3000/generation')
-      .then(response => response.json())
-      .then(json => {
-        console.log('json', json);
-
-        this.setState({generation: json.generation});
-      })
-      .catch(error => console.error(error));
-  }
-
   fetchNextGeneration() {
-    this.fetchGeneration();
+    this.props.fetchGeneration();
 
-    let delay = new Date(this.state.generation.expiration).getTime() -
+    let delay =
+      new Date(this.props.generation.expiration).getTime() -
       new Date().getTime();
 
     if (delay < MINUMM_DELAY) delay = MINUMM_DELAY;
 
     this.timer = setTimeout(() => {
-      this.fetchGeneration();
+      this.props.fetchGeneration();
     }, delay);
   }
 
   render() {
-    const { generation } = this.state;
+    const { generation } = this.props;
+
+    if (generation.status === fetchStates.error) {
+      return <div>{generation.message}</div>;
+    }
 
     return (
       <div>
@@ -52,5 +45,17 @@ class Generation extends Component {
     );
   }
 }
+const mapStateToProps = state => {
+  const generation = state.generation;
+  return { generation };
+};
 
-export default Generation;
+// const mapDispatchToProps = dispatch => {
+//   return {
+//     fetchGeneration: () => fetchNextGeneration(dispatch),
+//   };
+// };
+
+const componentConnector = connect(mapStateToProps, { fetchGeneration });
+
+export default componentConnector(Generation);

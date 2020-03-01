@@ -3,3 +3,16 @@ body {
   margin: 10%;
   font-size: 20px;
 }
+
+.dragon-avatar-image-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.dragon-avatar-image-pattern,
+.dragon-avatar-image-background {
+  position: absolute;
+}
+.dragon-avatar-image {
+  z-index: 0;
+}
